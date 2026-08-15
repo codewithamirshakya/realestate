@@ -1,0 +1,141 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+        'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* Om Realtors brand palette, sampled from the company logo/business card */
+    --color-brand-50: #eef5f9;
+    --color-brand-100: #d6e6ee;
+    --color-brand-200: #adcddd;
+    --color-brand-300: #84b4cc;
+    --color-brand-400: #4d84a2;
+    --color-brand-500: #2c5f7f;
+    --color-brand-600: #1c4f6e;
+    --color-brand-700: #163f58;
+    --color-brand-800: #112f43;
+    --color-brand-900: #0b1f2d;
+
+    --color-accent-50: #eafbec;
+    --color-accent-100: #cdf4d3;
+    --color-accent-200: #9de9a8;
+    --color-accent-300: #6bd979;
+    --color-accent-400: #4bb95a;
+    --color-accent-500: #379a46;
+    --color-accent-600: #2b7a37;
+    --color-accent-700: #235f2c;
+}
+
+@layer base {
+    body {
+        @apply antialiased text-brand-900 bg-white;
+    }
+}
+
+@layer components {
+    .btn,
+    .btn-primary,
+    .btn-accent,
+    .btn-outline,
+    .btn-outline-white {
+        @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold transition;
+    }
+
+    .btn-primary {
+        @apply bg-brand-600 text-white hover:bg-brand-700;
+    }
+
+    .btn-accent {
+        @apply bg-accent-400 text-white hover:bg-accent-600;
+    }
+
+    .btn-outline {
+        @apply border border-brand-600 text-brand-600 hover:bg-brand-50;
+    }
+
+    .btn-outline-white {
+        @apply border border-white text-white hover:bg-white/10;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+        @apply block w-full rounded-lg border border-brand-200 px-3.5 py-2.5 text-sm text-brand-900 placeholder-brand-300 shadow-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-100 focus:outline-none;
+    }
+
+    .form-label {
+        @apply mb-1.5 block text-sm font-medium text-brand-700;
+    }
+
+    .badge {
+        @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold;
+    }
+
+    .card {
+        @apply rounded-xl border border-brand-100 bg-white shadow-sm;
+    }
+
+    /* ---------------------------------------------------------------------
+       Inline CMS — only ever rendered for a logged-in admin
+       --------------------------------------------------------------------- */
+
+    .cms-bar {
+        @apply fixed inset-x-0 bottom-0 z-50 flex flex-wrap items-center gap-3 border-t border-brand-700 bg-brand-800/95 px-4 py-2.5 text-sm text-white backdrop-blur;
+    }
+
+    .cms-bar-title {
+        @apply text-xs font-semibold uppercase tracking-wider text-brand-300;
+    }
+
+    .cms-bar-button {
+        @apply rounded-lg border border-white/30 px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-white/10;
+    }
+
+    .cms-bar-button.is-on {
+        @apply border-accent-400 bg-accent-400 hover:bg-accent-600;
+    }
+
+    .cms-bar-link {
+        @apply text-xs font-semibold text-brand-200 underline-offset-2 hover:text-white hover:underline;
+    }
+
+    .cms-bar-status {
+        @apply ml-auto text-xs text-brand-200;
+    }
+
+    .cms-bar-status[data-tone='error'] {
+        @apply text-red-300;
+    }
+
+    .cms-editable {
+        @apply cursor-text rounded-sm outline-2 outline-offset-4 outline-dashed outline-accent-400/60 transition;
+    }
+
+    .cms-editable:hover {
+        @apply outline-accent-400 bg-accent-400/10;
+    }
+
+    .cms-editable:focus {
+        @apply outline-solid outline-accent-500 bg-accent-400/10;
+    }
+
+    .cms-editable.is-saving {
+        @apply opacity-60;
+    }
+
+    .cms-editable.is-saved {
+        @apply outline-accent-500 bg-accent-300/30;
+    }
+
+    .cms-image-button {
+        @apply absolute right-3 top-3 z-10 rounded-lg bg-brand-800/90 px-3 py-1.5 text-xs font-semibold text-white shadow hover:bg-brand-700 disabled:opacity-50;
+    }
+}
+
+/* Keep the fixed edit bar from covering the end of the page. */
+body.has-cms-bar {
+    padding-bottom: 3.5rem;
+}
