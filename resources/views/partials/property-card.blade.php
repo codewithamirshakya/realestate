@@ -13,7 +13,7 @@
             <img src="{{ $image->url() }}" alt="{{ $property->title }}" class="h-full w-full object-cover transition duration-300 group-hover:scale-105">
         @else
             <div class="flex h-full w-full items-center justify-center">
-                <x-logo-mark class="h-14 w-14 opacity-70" />
+                <x-logo-mark class="h-12 w-auto opacity-50" alt="" />
             </div>
         @endif
 

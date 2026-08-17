@@ -3,7 +3,7 @@
 @section('content')
 <div class="mx-auto max-w-md px-4 py-16 sm:px-6">
     <div class="text-center">
-        <x-logo-mark class="mx-auto h-14 w-14" />
+        <x-logo-mark class="mx-auto h-14 w-auto" />
         <h1 class="mt-4 font-serif text-2xl font-bold text-brand-900">Create your account</h1>
         <p class="mt-1 text-brand-400">Join {{ config('company.name_en') }} to buy, rent, or list property.</p>
     </div>

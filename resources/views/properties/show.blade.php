@@ -26,7 +26,7 @@
                     @endif
                 @else
                     <div class="flex aspect-video w-full items-center justify-center bg-gradient-to-br from-brand-200 to-brand-500">
-                        <x-logo-mark class="h-20 w-20 opacity-70" />
+                        <x-logo-mark class="h-16 w-auto opacity-50" alt="" />
                     </div>
                 @endif
             </div>

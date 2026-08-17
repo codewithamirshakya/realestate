@@ -8,6 +8,10 @@
     <meta name="description" content="{{ $description ?? $cms->value('seo.description') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/apple-touch-icon.png') }}">
+    <meta property="og:image" content="{{ asset('images/logo.png') }}">
+
     @fonts
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
