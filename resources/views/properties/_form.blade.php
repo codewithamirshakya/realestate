@@ -12,7 +12,13 @@
         <div class="sm:col-span-2">
             <label class="form-label">Assign to agent</label>
             <select name="user_id" class="form-select">
-                <option value="">{{ auth()->user()->name }} (me)</option>
+                <option value="">
+                    @if ($p)
+                        Keep current owner{{ $p->user ? ' ('.$p->user->name.')' : '' }}
+                    @else
+                        {{ auth()->user()->name }} (me)
+                    @endif
+                </option>
                 @foreach ($agents as $agent)
                     <option value="{{ $agent->id }}" @selected(old('user_id', $p?->user_id) == $agent->id)>{{ $agent->name }}</option>
                 @endforeach

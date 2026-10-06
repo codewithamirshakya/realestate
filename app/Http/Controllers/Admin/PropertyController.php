@@ -30,14 +30,14 @@ class PropertyController extends Controller
 
     public function create(): View
     {
-        $agents = User::where('role', 'agent')->orderBy('name')->get();
+        $agents = User::where('role', User::ROLE_AGENT)->orderBy('name')->get();
 
         return view('admin.properties.create', compact('agents'));
     }
 
     public function store(PropertyRequest $request): RedirectResponse
     {
-        $data = $request->safe()->except(['images']);
+        $data = $request->safe()->except(['images', 'user_id']);
         $data['user_id'] = $request->input('user_id') ?: $request->user()->id;
 
         $property = Property::create($data);
@@ -51,17 +51,26 @@ class PropertyController extends Controller
 
     public function edit(Property $property): View
     {
-        $agents = User::where('role', 'agent')->orderBy('name')->get();
+        // The current owner is always listed, even if they are an admin or no
+        // longer an agent — otherwise the browser would pre-select the blank
+        // option and the form would come back with no owner at all.
+        $agents = User::query()
+            ->where(fn ($query) => $query->where('role', User::ROLE_AGENT)->orWhere('id', $property->user_id))
+            ->orderBy('name')
+            ->get();
 
         return view('admin.properties.edit', compact('property', 'agents'));
     }
 
     public function update(PropertyRequest $request, Property $property): RedirectResponse
     {
-        $data = $request->safe()->except(['images']);
+        // `user_id` is dropped from the validated data on purpose: an empty
+        // select submits an empty string, which arrives here as null and would
+        // otherwise wipe the owner (properties.user_id is NOT NULL).
+        $data = $request->safe()->except(['images', 'user_id']);
 
         if ($request->filled('user_id')) {
-            $data['user_id'] = $request->input('user_id');
+            $data['user_id'] = $request->integer('user_id');
         }
 
         $property->update($data);
